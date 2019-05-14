@@ -20,6 +20,9 @@ SEXP GetRdConsumer(Rcpp::StringVector keys, Rcpp::StringVector values) {
     std::string errstr;
     auto conf = MakeKafkaConfig(keys,values);
     RdKafka::KafkaConsumer *consumer = RdKafka::KafkaConsumer::create(conf, errstr);
+    if(!consumer) {
+      Rcpp::stop("Consumer creation failed with error: " + errstr); 
+    }
     Rcpp::XPtr<RdKafka::KafkaConsumer> p(consumer, true) ;
     return p;
 }

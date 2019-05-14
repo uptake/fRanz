@@ -17,7 +17,10 @@ SEXP GetRdProducer(Rcpp::StringVector keys, Rcpp::StringVector values) {
     std::string errstr;
     auto conf = MakeKafkaConfig(keys,values);
     RdKafka::Producer *producer = RdKafka::Producer::create(conf, errstr);
-    Rcpp::XPtr<RdKafka::Producer> p(producer, true) ;
+    if(!producer) {
+      Rcpp::stop("Producer creation failed with error: " + errstr); 
+    }
+   Rcpp::XPtr<RdKafka::Producer> p(producer, true) ;
     return p;
 }
 
