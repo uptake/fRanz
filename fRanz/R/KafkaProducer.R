@@ -15,13 +15,13 @@ KafkaProducer <- R6::R6Class(
 
         # Produce single message to topic
         , produce = function(topic
-                             , value
-                             , key) {
+                             , values
+                             , keys) {
             KafkaProduce(private$producerPtr
                          ,topic
                          ,0
-                         ,key
-                         ,value)
+                         ,keys
+                         ,values)
         }
 
         , getTopics = function() {
