@@ -55,7 +55,7 @@ Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
     for(int i = 0; i < numResults; i++) {
         RdKafka::Message *msg = consumer->consume(10000);
         switch(msg->err()){
-            case RdKafka::ERR_NO_ERROR:{
+            case RdKafka::ERR_NO_ERROR: {
                 printf("Message %.*s\n",
                        static_cast<int>(msg->len()),
                        static_cast<const char *>(msg->payload()));
@@ -63,8 +63,10 @@ Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
                                                         Rcpp::Named("payload") = static_cast<const char *>(msg->payload()));
                 messages[i] = message;
                 break;
-            }
-            default:{
+            } case RdKafka::ERR__PARTITION_EOF: {
+                printf("No additional messages available\n");
+                goto exit_loop;
+            } default: {
                 /* Errors */
                 printf("Consume failed: %s", msg->errstr().c_str());
                 goto exit_loop;
