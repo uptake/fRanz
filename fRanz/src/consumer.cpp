@@ -13,7 +13,10 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 //' @title GetRdConsumer
 //' @name GetRdConsumer
-//' @description TBD
+//' @description Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+//' @param keys a character vector indicating option keys to parameterize the RdKafka::Consumer
+//' @param values a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.
+//' @return a Rcpp::XPtr<RdKafka::Consumer>
 //' @export
 // [[Rcpp::export]]
 SEXP GetRdConsumer(Rcpp::StringVector keys, Rcpp::StringVector values) {
@@ -29,7 +32,11 @@ SEXP GetRdConsumer(Rcpp::StringVector keys, Rcpp::StringVector values) {
 
 //' @title RdSubscribe
 //' @name RdSubscribe
-//' @description TBD
+//' @description A method to register a consumer with a set amount of topics as consumers. 
+//' This is important so the broker can track offsets and register it in a consumer group
+//' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
+//' @param Rtopics a character vector listing the topics to subscribe to
+//' @return the int representation of the librdkafka error code of the response to subscribe. 0 is good
 //' @export
 // [[Rcpp::export]]
 int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
@@ -45,7 +52,10 @@ int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
 
 //' @title KafkaConsume
 //' @name KafkaConsume
-//' @description TBD
+//' @description
+//' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
+//' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
+//' @return a list of length numResults with values list(key=key,value=value)
 //' @export
 // [[Rcpp::export]]
 Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
@@ -56,11 +66,8 @@ Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
         RdKafka::Message *msg = consumer->consume(10000);
         switch(msg->err()){
             case RdKafka::ERR_NO_ERROR: {
-                printf("Message %.*s\n",
-                       static_cast<int>(msg->len()),
-                       static_cast<const char *>(msg->payload()));
                 Rcpp::List message = Rcpp::List::create(Rcpp::Named("key") = *msg->key(),
-                                                        Rcpp::Named("payload") = static_cast<const char *>(msg->payload()));
+                                                        Rcpp::Named("value") = static_cast<const char *>(msg->payload()));
                 messages[i] = message;
                 break;
             } case RdKafka::ERR__PARTITION_EOF: {

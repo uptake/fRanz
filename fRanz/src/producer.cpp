@@ -8,9 +8,12 @@
 #include <csignal>
 #include <cstring>
 
-//' @title Kafka Producer
+//' @title GetRdProducer
 //' @name GetRdProducer
-//' @description Gets a handle to a kafka producer
+//' @description Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+//' @param keys a character vector indicating option keys to parameterize the RdKafka::Producer
+//' @param values a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.
+//' @return a Rcpp::XPtr<RdKafka::Producer>
 //' @export
 // [[Rcpp::export]]
 SEXP GetRdProducer(Rcpp::StringVector keys, Rcpp::StringVector values) {
@@ -24,9 +27,15 @@ SEXP GetRdProducer(Rcpp::StringVector keys, Rcpp::StringVector values) {
     return p;
 }
 
-//' @title Produce to a topic
+//' @title KafkaProduce
 //' @name KafkaProduce
-//' @description Gets a handle to a kafka producer
+//' @description Produces key/values to a particular topic on a particular partition
+//' @param producer_pointer a Rcpp::XPtr<RdKafka::Producer>
+//' @param topic a string indicating the topic to produce to
+//' @param partition an integer indicating the partition to produce to
+//' @param keys a character vector for all the keys for the messages
+//' @param values a character vector for all the values for the messages. Must be of same length as keys
+//' @return returns the number of messages succesfully sent
 //' @export
 // [[Rcpp::export]]
 int KafkaProduce(SEXP producer_pointer,
