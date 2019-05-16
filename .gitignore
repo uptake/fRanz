@@ -1,8 +1,7 @@
+.vscode/
 .Rproj.user
 .Rhistory
 .RData
-fRanz/R/RcppExports.R
-fRanz/src/RcppExports.cpp
 *.o
 *.so
 *.DS_Store
