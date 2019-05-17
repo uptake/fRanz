@@ -1,19 +1,55 @@
 version: '3'
 
+# This is a subset of the full_stack.yml from:
+# https://github.com/simplesteph/kafka-stack-docker-compose
 services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:5.0.0
+  zoo1:
+    image: zookeeper:3.4.9
+    restart: unless-stopped
+    hostname: zoo1
     ports:
       - "2181:2181"
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
+        ZOO_MY_ID: 1
+        ZOO_PORT: 2181
+        ZOO_SERVERS: server.1=zoo1:2888:3888
 
-  kafka:
-    image: confluentinc/cp-kafka:5.0.0
+  kafka1:
+    image: confluentinc/cp-kafka:5.2.1
+    hostname: kafka1
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
       KAFKA_BROKER_ID: 1
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: localhost:2181
+    depends_on:
+      - zoo1
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:5.2.1
+    hostname: kafka-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:19092
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - zoo1
+      - kafka1
+
+  schema-registry-ui:
+    image: landoop/schema-registry-ui:0.9.4
+    hostname: kafka-schema-registry-ui
+    ports:
+      - "8001:8000"
+    environment:
+      SCHEMAREGISTRY_URL: http://kafka-schema-registry:8081/
+      PROXY: "true"
+    depends_on:
+      - kafka-schema-registry
