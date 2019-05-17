@@ -2,10 +2,24 @@
 % Please edit documentation in R/RcppExports.R
 \name{KafkaProduce}
 \alias{KafkaProduce}
-\title{Produce to a topic}
+\title{KafkaProduce}
 \usage{
 KafkaProduce(producer_pointer, topic, partition, keys, values)
 }
+\arguments{
+\item{producer_pointer}{a Rcpp::XPtr<RdKafka::Producer>}
+
+\item{topic}{a string indicating the topic to produce to}
+
+\item{partition}{an integer indicating the partition to produce to}
+
+\item{keys}{a character vector for all the keys for the messages}
+
+\item{values}{a character vector for all the values for the messages. Must be of same length as keys}
+}
+\value{
+returns the number of messages succesfully sent
+}
 \description{
-Gets a handle to a kafka producer
+Produces key/values to a particular topic on a particular partition
 }

@@ -2,10 +2,18 @@
 % Please edit documentation in R/RcppExports.R
 \name{GetRdProducer}
 \alias{GetRdProducer}
-\title{Kafka Producer}
+\title{GetRdProducer}
 \usage{
 GetRdProducer(keys, values)
 }
+\arguments{
+\item{keys}{a character vector indicating option keys to parameterize the RdKafka::Producer}
+
+\item{values}{a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.}
+}
+\value{
+a Rcpp::XPtr<RdKafka::Producer>
+}
 \description{
-Gets a handle to a kafka producer
+Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
 }

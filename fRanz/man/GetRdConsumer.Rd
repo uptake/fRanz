@@ -11,6 +11,9 @@ GetRdConsumer(keys, values)
 
 \item{values}{a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.}
 }
+\value{
+a Rcpp::XPtr<RdKafka::Consumer>
+}
 \description{
-Creates an Rcpp::XPtr<RdKafka::KafkaConsumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
 }
