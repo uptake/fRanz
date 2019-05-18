@@ -1,23 +1,21 @@
-INSTALLDIR = $(HOME)/.fRanz/librdkafka
-LIBRDKAFKADIR = $(PWD)/../inst/librdkafka-0.11.6
+INSTALLDIR = $(HOME)/.fRanz
 
-PKG_LIBS = -L$(INSTALLDIR)/src-cpp -lrdkafka++
-PKG_CXXFLAGS = -std=c++11 -I$(INSTALLDIR)/src-cpp
+PKG_LIBS = -L$(INSTALLDIR)/librdkafka/src-cpp -lrdkafka++
+PKG_CXXFLAGS = -std=c++11 -I$(INSTALLDIR)/librdkafka/src-cpp
 
 .PHONY: all install_librdkadka
 
 all: install_librdkadka
 
 install_librdkadka:
-	if [ ! -s $(INSTALLDIR)/src-cpp/librdkafka++.a ] ; \
+	if [ ! -d $(INSTALLDIR)/librdkafka/src-cpp ] ; \
 	then \
-		mkdir -p $(INSTALLDIR) && \
-		cd $(shell dirname $(LIBRDKAFKADIR)) && \
-		tar xzf $(LIBRDKAFKADIR).tar.gz && \
-		cd $(LIBRDKAFKADIR) && \
+		mkdir -p $(INSTALLDIR)/librdkafka && \
+		cd ../inst && \
+		tar xzf librdkafka-1.0.0.tar.gz && \
+		cd librdkafka-1.0.0 && \
 		./configure && \
 		$(MAKE) && \
-                $(MAKE) install && \
-		mv * $(INSTALLDIR) ; \
+		$(MAKE) install && \
+		mv * $(INSTALLDIR)/librdkafka ; \
 	fi
-

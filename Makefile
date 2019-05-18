@@ -1,8 +1,5 @@
 PACKAGE = fRanz
-INSTALLDIR = $(HOME)/.$(PACKAGE)/local
-OS = $(shell uname -s)
-
-.PHONY: install smoke test docs roxygen pdf version clean distclean cleanRcpp unlock
+.PHONY: install test docs clean distclean cleanRcpp unlock
 
 install: unlock clean cleanRcpp
 	# Install fRanz R package
@@ -22,13 +19,13 @@ clean:
 distclean: clean cleanRcpp
 
 unlock:
-	# Remove 00LOCK-cpproll directory
+	# Remove 00LOCK directory
 	for libpath in $$(Rscript -e "noquote(paste(.libPaths(), collapse = ' '))"); do \
 		echo "Unlocking $$libpath..." && \
 		rm -rf $$libpath/00LOCK-$(PACKAGE); \
 	done
 
-docs roxygen:
+docs:
 	# Regenerate documentation with roxygen
 	Rscript -e "roxygen2::roxygenize('$(PACKAGE)')"
 test:
