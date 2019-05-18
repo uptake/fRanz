@@ -16,10 +16,11 @@ KafkaProducer <- R6::R6Class(
         # Produce single message to topic
         , produce = function(topic
                              , values
-                             , keys) {
+                             , keys
+                             , partition = 0) {
             KafkaProduce(private$producerPtr
                          ,topic
-                         ,0
+                         ,partition
                          ,keys
                          ,values)
         }
