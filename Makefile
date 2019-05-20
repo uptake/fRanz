@@ -1,5 +1,6 @@
 PACKAGE = fRanz
 .PHONY: install test docs clean distclean cleanRcpp unlock
+LIBRDKAFKA_CONF=''
 
 install: unlock clean cleanRcpp
 	# Install fRanz R package
@@ -36,7 +37,7 @@ librdkafka:
 	wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
 	tar xzf librdkafka-1.0.0.tar.gz && \
 	cd librdkafka-1.0.0 && \
-	./configure && \
+	./configure $(LIBRDKAFKA_CONF)&& \
 	$(MAKE) && \
 	$(MAKE) install && \
 	cd .. && rm -rf librdkafka-1.0.0; \
