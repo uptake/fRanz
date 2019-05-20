@@ -2,16 +2,13 @@ services:
   - docker
 
 before_install:
+  - mkdir /usr/local/include /usr/local/lib
+  - make librdkafka
   - docker-compose up -d 
   - sleep 20
-  - make librdkafka
   - cd fRanz
 
 language: r
 r: 
   - release
 cache: packages
-addons:
-  apt:
-    packages:
-    - librdkafka-dev
