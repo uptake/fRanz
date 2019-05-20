@@ -4,6 +4,7 @@ services:
 before_install:
   - docker-compose up -d 
   - sleep 20
+  - make librdkafka
   - cd fRanz
 
 language: r
