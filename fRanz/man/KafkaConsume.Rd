@@ -4,17 +4,23 @@
 \alias{KafkaConsume}
 \title{KafkaConsume}
 \usage{
-KafkaConsume(consumerPtr, numResults)
+KafkaConsume(consumerPtr, numResults, timeout = 10000L)
 }
 \arguments{
 \item{consumerPtr}{a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>}
 
 \item{numResults}{how many results should be consumed before returning. Will return early if offset is at maximum}
+
+\item{timeout}{the timeout in milliseconds. Default is 10000}
 }
 \value{
 a list of length numResults with values list(key=key,value=value)
 }
 \description{
+<<<<<<< HEAD
 Consume a fixed number of results from whatever topic(s)
              the provided consumer is subscribed to.
+=======
+A method to that takes a consumer pointer and returns at most the specified number of results, unless the timeout is reached
+>>>>>>> fix(build): Fixing install process to rely on system library as a temp measure
 }

@@ -4,12 +4,13 @@ services:
 before_install:
   - docker-compose up -d 
   - sleep 20
+  - cd fRanz
 
 language: r
 r: 
   - release
 cache: packages
-
-os:
-  - linux
-  - osx
+addons:
+  apt:
+    packages:
+    - librdkafka-dev

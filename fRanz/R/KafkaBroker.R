@@ -13,7 +13,6 @@
 #' BROKER_HOST <- 'localhost'
 #' BROKER_PORT <- 9092
 #' TOPIC_NAME <- 'myTestTopic'
-
 #' # KafkaBroker
 #' broker <- KafkaBroker$new(host=BROKER_HOST, port=BROKER_PORT)
 #' 

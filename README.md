@@ -13,6 +13,13 @@
 fRanz is an open source R kafka client that allows users to read and write messages from kafka. It leverages the stability and performance of [librdkafka](https://github.com/edenhill/librdkafka) and implements ididiomatic R workflows ontop of it. 
 
 
+## Installation 
+
+We're working on it. Currently you need librdkafka as a system available library in order to load the R package. In order to install from source you also need the headers. A make recipe in the top level `make librdkafka` should work for *nix systems.
+
+
+No attempt has been made for windows compatability.
+
 ## Example of sending and reading a message
 
 ```r
