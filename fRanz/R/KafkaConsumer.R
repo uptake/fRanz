@@ -1,6 +1,7 @@
 #' @title Kakfa Consumer
 #' @name KafkaConsumer
 #' @description TDB
+#' @export
 #' @importFrom R6 R6Class
 KafkaConsumer <- R6::R6Class(
     classname = "KafkaConsumer"

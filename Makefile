@@ -32,3 +32,11 @@ test:
 	# Run unit tests
 	Rscript -e "devtools::test('$(PACKAGE)')"
 
+librdkafka:
+	wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
+	tar xzf librdkafka-1.0.0.tar.gz && \
+	cd librdkafka-1.0.0 && \
+	./configure && \
+	$(MAKE) && \
+	$(MAKE) install && \
+	cd .. && rm -rf librdkafka-1.0.0; \
