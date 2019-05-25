@@ -17,7 +17,6 @@
 //' @param keys a character vector indicating option keys to parameterize the RdKafka::Consumer
 //' @param values a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.
 //' @return a Rcpp::XPtr<RdKafka::Consumer>
-//' @export
 // [[Rcpp::export]]
 SEXP GetRdConsumer(Rcpp::StringVector keys, Rcpp::StringVector values) {
     std::string errstr;
@@ -37,7 +36,6 @@ SEXP GetRdConsumer(Rcpp::StringVector keys, Rcpp::StringVector values) {
 //' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 //' @param Rtopics a character vector listing the topics to subscribe to
 //' @return the int representation of the librdkafka error code of the response to subscribe. 0 is good
-//' @export
 // [[Rcpp::export]]
 int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
     Rcpp::XPtr<RdKafka::KafkaConsumer> consumer(consumerPtr);
@@ -56,7 +54,6 @@ int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
 //' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 //' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
 //' @return a list of length numResults with values list(key=key,value=value)
-//' @export
 // [[Rcpp::export]]
 Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
     Rcpp::XPtr<RdKafka::KafkaConsumer> consumer(consumerPtr);
