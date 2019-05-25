@@ -9,6 +9,53 @@
 KafkaConsumer
 }
 \description{
-TDB
+A consumer is an application which 
+             subscribes to one or more topics and processes
+             new messages as they arrive on that topic.
+
+             Consumers may also be instructed to process older
+             messages.
+
+             Consumers belong to "consumer groups". Consumer
+             groups with more than one consumer instance can be
+             used to parallelize message processing and / or
+             distribute it over multiple physical machines.
+}
+\examples{
+\donttest{
+library(fRanz)
+
+BROKER_HOST <- 'localhost'
+BROKER_PORT <- 9092
+TOPIC_NAME <- 'myTestTopic'
+# KafkaBroker
+broker <- KafkaBroker$new(host=BROKER_HOST, port=BROKER_PORT)
+
+# KafkaProducer
+producer <- KafkaProducer$new(brokers = list(broker))
+producer$produce(topic = TOPIC_NAME,
+                 key = "myKey",
+                 value = "My First Message")
+# Number of messages successfuly sent is returned
+# [1] 1 
+
+
+# KafkaConsumer
+consumer <- KafkaConsumer$new(brokers = list(broker), groupId = "test", extraOptions=list(`auto.offset.reset`="earliest"))
+consumer$subscribe(topics = c(TOPIC_NAME))
+result <- consumer$consume(topic=TOPIC_NAME)
+
+result
+# Consumed messages are returned in a list(list(key,val)) format
+# [[1]]
+# [[1]]$key
+# [1] "myKey"
+#
+# [[1]]$payload
+# [1] "My First Message" 
+}
+}
+\references{
+\href{https://kafka.apache.org/documentation/#intro_consumers}{Apache Kafka docs - Consumers}
 }
 \keyword{datasets}

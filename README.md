@@ -1,9 +1,11 @@
 # fRranz: An R Kafka Client
+
+![Lifecycle badge](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
+
 **THIS PROJECT IS STILL ALPHA CURRENTLY -- Check back often!!**
 
 
 ![](doc/sticker/fRanz.png)
-
 
 
 ## What is fRanz
@@ -32,7 +34,7 @@ producer$produce(topic = TOPIC_NAME,
 # [1] 1 
 
 
-#KafkaConsumer
+# KafkaConsumer
 consumer <- KafkaConsumer$new(brokers = list(broker), groupId = "test", extraOptions=list(`auto.offset.reset`="earliest"))
 consumer$subscribe(topics = c(TOPIC_NAME))
 result <- consumer$consume(topic=TOPIC_NAME)
@@ -45,8 +47,4 @@ result
 #
 # [[1]]$payload
 # [1] "My First Message" 
-
 ```
-
-
-

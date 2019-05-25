@@ -15,5 +15,6 @@ KafkaConsume(consumerPtr, numResults)
 a list of length numResults with values list(key=key,value=value)
 }
 \description{
-KafkaConsume
+Consume a fixed number of results from whatever topic(s)
+             the provided consumer is subscribed to.
 }
