@@ -30,14 +30,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // KafkaConsume
-Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults);
-RcppExport SEXP _fRanz_KafkaConsume(SEXP consumerPtrSEXP, SEXP numResultsSEXP) {
+Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults, int timeout);
+RcppExport SEXP _fRanz_KafkaConsume(SEXP consumerPtrSEXP, SEXP numResultsSEXP, SEXP timeoutSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type consumerPtr(consumerPtrSEXP);
     Rcpp::traits::input_parameter< int >::type numResults(numResultsSEXP);
-    rcpp_result_gen = Rcpp::wrap(KafkaConsume(consumerPtr, numResults));
+    Rcpp::traits::input_parameter< int >::type timeout(timeoutSEXP);
+    rcpp_result_gen = Rcpp::wrap(KafkaConsume(consumerPtr, numResults, timeout));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -72,7 +73,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_fRanz_GetRdConsumer", (DL_FUNC) &_fRanz_GetRdConsumer, 2},
     {"_fRanz_RdSubscribe", (DL_FUNC) &_fRanz_RdSubscribe, 2},
-    {"_fRanz_KafkaConsume", (DL_FUNC) &_fRanz_KafkaConsume, 2},
+    {"_fRanz_KafkaConsume", (DL_FUNC) &_fRanz_KafkaConsume, 3},
     {"_fRanz_GetRdProducer", (DL_FUNC) &_fRanz_GetRdProducer, 2},
     {"_fRanz_KafkaProduce", (DL_FUNC) &_fRanz_KafkaProduce, 5},
     {NULL, NULL, 0}
