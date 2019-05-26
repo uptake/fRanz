@@ -20,6 +20,6 @@ Suggests:
     testthat,
     uuid
 LinkingTo: Rcpp
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 URL: https://github.com/UptakeOpenSource/fRanz
 BugReports: https://github.com/UptakeOpenSource/fRanz/issues
