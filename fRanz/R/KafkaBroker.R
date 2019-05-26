@@ -1,6 +1,7 @@
 #' @title KafkaBroker
-#' @name Kafka Broker
+#' @name KafkaBroker
 #' @description TDB
+#' @export
 #' @importFrom R6 R6Class
 KafkaBroker <- R6::R6Class(
     classname = "KafkaBroker"

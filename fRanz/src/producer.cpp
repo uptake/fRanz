@@ -1,16 +1,10 @@
-#include <rdkafkacpp.h>
+#include <librdkafka/rdkafkacpp.h>
 #include <Rcpp.h>
 #include "utils.h"
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <cstdio>
-#include <csignal>
-#include <cstring>
 
 //' @title GetRdProducer
 //' @name GetRdProducer
-//' @description Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+//' @description Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \href{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}{Configuration}
 //' @param keys a character vector indicating option keys to parameterize the RdKafka::Producer
 //' @param values a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.
 //' @return a Rcpp::XPtr<RdKafka::Producer>

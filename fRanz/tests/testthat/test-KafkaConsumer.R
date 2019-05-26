@@ -2,6 +2,7 @@ context("KafkaConsumer and KafkaProducer")
 
 
 testthat::test_that("Testing KafkaConsumer and KafkaProducer work consuming 1 message",{
+    testthat::skip_on_cran()
     ## Standard Set Up
     topic <- uuid::UUIDgenerate()
     group <- uuid::UUIDgenerate()
@@ -25,6 +26,7 @@ testthat::test_that("Testing KafkaConsumer and KafkaProducer work consuming 1 me
 
 
 testthat::test_that("Testing KafkaConsumer and KafkaProducer work consuming random number of messages",{
+    testthat::skip_on_cran()
     ## Standard Set Up
     topic <- uuid::UUIDgenerate()
     group <- uuid::UUIDgenerate()

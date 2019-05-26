@@ -15,5 +15,5 @@ GetRdConsumer(keys, values)
 a Rcpp::XPtr<RdKafka::Consumer>
 }
 \description{
-Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \href{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}{Configuration}
 }
