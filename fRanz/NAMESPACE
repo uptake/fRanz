@@ -2,8 +2,11 @@
 
 export(GetRdConsumer)
 export(GetRdProducer)
+export(KafkaBroker)
 export(KafkaConsume)
+export(KafkaConsumer)
 export(KafkaProduce)
+export(KafkaProducer)
 export(RdSubscribe)
 importFrom(R6,R6Class)
 importFrom(Rcpp,sourceCpp)
