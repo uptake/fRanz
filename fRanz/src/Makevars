@@ -1,2 +1,6 @@
-PKG_LIBS = -lrdkafka++
+LIBRDKAFKA_LIBS = -L../../dest -lrdkafka++
+LIBRDKAFKA_CXXFLAGS = -I../../dest/include -lrdkafka++
+
 CXX_STD=CXX11
+PKG_CXXFLAGS = $(LIBRDKAFKA_CXXFLAGS)
+PKG_LIBS = $(LIBRDKAFKA_LIBS)
