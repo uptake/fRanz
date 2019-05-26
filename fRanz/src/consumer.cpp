@@ -50,7 +50,8 @@ int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
 
 //' @title KafkaConsume
 //' @name KafkaConsume
-//' @description
+//' @description Consume a fixed number of results from whatever topic(s)
+//'              the provided consumer is subscribed to.
 //' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 //' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
 //' @return a list of length numResults with values list(key=key,value=value)

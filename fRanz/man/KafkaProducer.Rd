@@ -9,6 +9,10 @@
 KafkaProducer
 }
 \description{
-TDB
+A producer is an application that is responsible
+             for publishing data to topics.
+}
+\references{
+\href{https://kafka.apache.org/documentation/#intro_producers}{Apache Kafka docs - Producers}
 }
 \keyword{datasets}

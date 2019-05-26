@@ -1,7 +1,10 @@
 #' @title Kakfa Producer
 #' @name KafkaProducer
-#' @description TDB
+#' @description A producer is an application that is responsible
+#'              for publishing data to topics.
+#' @references \href{https://kafka.apache.org/documentation/#intro_producers}{Apache Kafka docs - Producers}
 #' @importFrom R6 R6Class
+#' @export
 KafkaProducer <- R6::R6Class(
     classname = "KafkaProducer"
     , public = list(
