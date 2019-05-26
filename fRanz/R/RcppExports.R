@@ -7,7 +7,6 @@
 #' @param keys a character vector indicating option keys to parameterize the RdKafka::Consumer
 #' @param values a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.
 #' @return a Rcpp::XPtr<RdKafka::Consumer>
-#' @export
 GetRdConsumer <- function(keys, values) {
     .Call('_fRanz_GetRdConsumer', PACKAGE = 'fRanz', keys, values)
 }
@@ -19,7 +18,6 @@ GetRdConsumer <- function(keys, values) {
 #' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 #' @param Rtopics a character vector listing the topics to subscribe to
 #' @return the int representation of the librdkafka error code of the response to subscribe. 0 is good
-#' @export
 RdSubscribe <- function(consumerPtr, Rtopics) {
     .Call('_fRanz_RdSubscribe', PACKAGE = 'fRanz', consumerPtr, Rtopics)
 }
@@ -31,7 +29,6 @@ RdSubscribe <- function(consumerPtr, Rtopics) {
 #' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 #' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
 #' @return a list of length numResults with values list(key=key,value=value)
-#' @export
 KafkaConsume <- function(consumerPtr, numResults) {
     .Call('_fRanz_KafkaConsume', PACKAGE = 'fRanz', consumerPtr, numResults)
 }
@@ -42,7 +39,6 @@ KafkaConsume <- function(consumerPtr, numResults) {
 #' @param keys a character vector indicating option keys to parameterize the RdKafka::Producer
 #' @param values a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.
 #' @return a Rcpp::XPtr<RdKafka::Producer>
-#' @export
 GetRdProducer <- function(keys, values) {
     .Call('_fRanz_GetRdProducer', PACKAGE = 'fRanz', keys, values)
 }
@@ -56,7 +52,6 @@ GetRdProducer <- function(keys, values) {
 #' @param keys a character vector for all the keys for the messages
 #' @param values a character vector for all the values for the messages. Must be of same length as keys
 #' @return returns the number of messages succesfully sent
-#' @export
 KafkaProduce <- function(producer_pointer, topic, partition, keys, values) {
     .Call('_fRanz_KafkaProduce', PACKAGE = 'fRanz', producer_pointer, topic, partition, keys, values)
 }

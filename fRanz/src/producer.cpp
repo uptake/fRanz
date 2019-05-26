@@ -14,7 +14,6 @@
 //' @param keys a character vector indicating option keys to parameterize the RdKafka::Producer
 //' @param values a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.
 //' @return a Rcpp::XPtr<RdKafka::Producer>
-//' @export
 // [[Rcpp::export]]
 SEXP GetRdProducer(Rcpp::StringVector keys, Rcpp::StringVector values) {
     std::string errstr;
@@ -36,7 +35,6 @@ SEXP GetRdProducer(Rcpp::StringVector keys, Rcpp::StringVector values) {
 //' @param keys a character vector for all the keys for the messages
 //' @param values a character vector for all the values for the messages. Must be of same length as keys
 //' @return returns the number of messages succesfully sent
-//' @export
 // [[Rcpp::export]]
 int KafkaProduce(SEXP producer_pointer,
                  SEXP topic, 
