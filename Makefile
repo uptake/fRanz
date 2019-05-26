@@ -1,8 +1,6 @@
 PACKAGE = fRanz
-INSTALLDIR = $(HOME)/.$(PACKAGE)/local
-OS = $(shell uname -s)
-
-.PHONY: install smoke test docs roxygen pdf version clean distclean cleanRcpp unlock
+.PHONY: install test docs clean distclean cleanRcpp unlock
+LIBRDKAFKA_CONF=''
 
 install: unlock clean cleanRcpp
 	# Install fRanz R package
@@ -22,16 +20,24 @@ clean:
 distclean: clean cleanRcpp
 
 unlock:
-	# Remove 00LOCK-cpproll directory
+	# Remove 00LOCK directory
 	for libpath in $$(Rscript -e "noquote(paste(.libPaths(), collapse = ' '))"); do \
 		echo "Unlocking $$libpath..." && \
 		rm -rf $$libpath/00LOCK-$(PACKAGE); \
 	done
 
-docs roxygen:
+docs:
 	# Regenerate documentation with roxygen
 	Rscript -e "roxygen2::roxygenize('$(PACKAGE)')"
 test:
 	# Run unit tests
 	Rscript -e "devtools::test('$(PACKAGE)')"
 
+librdkafka:
+	wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
+	tar xzf librdkafka-1.0.0.tar.gz && \
+	cd librdkafka-1.0.0 && \
+	./configure $(LIBRDKAFKA_CONF)&& \
+	$(MAKE) && \
+	$(MAKE) install && \
+	cd .. && rm -rf librdkafka-1.0.0; \
