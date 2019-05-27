@@ -1,4 +1,4 @@
-LIBRDKAFKA_LOC = $(PWD)/librdkafka
+LIBRDKAFKA_LOC = librdkafka
 
 PKG_LIBS = -L$(LIBRDKAFKA_LOC)/lib -lrdkafka++
 PKG_CXXFLAGS = -I$(LIBRDKAFKA_LOC)/include
