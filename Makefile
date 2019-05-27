@@ -1,6 +1,5 @@
 PACKAGE = fRanz
-.PHONY: install test docs clean distclean cleanRcpp unlock
-LIBRDKAFKA_CONF=''
+.PHONY: install test docs clean distclean cleanRcpp unlock build check
 
 install: unlock clean cleanRcpp
 	# Install fRanz R package
@@ -8,6 +7,10 @@ install: unlock clean cleanRcpp
 	Rscript -e "Rcpp::compileAttributes(file.path(getwd(),'$(PACKAGE)'))" && \
 	Rscript -e 'if (!"devtools" %in% rownames(installed.packages())) {install.packages("devtools", repos = "https://cran.rstudio.com")}' && \
 	Rscript -e "devtools::install(file.path(getwd(),'$(PACKAGE)'), force = TRUE, upgrade = FALSE)"
+
+check: docs clean
+	R CMD build fRanz
+	R CMD check --as-cran `ls | grep  fRanz*.tar.gz`
 
 cleanRcpp:
 	rm -f fRanz/R/RcppExport.R fRanz/src/RcppExport.cpp
@@ -33,12 +36,3 @@ docs:
 test:
 	# Run unit tests
 	Rscript -e "devtools::test('$(PACKAGE)')"
-
-librdkafka:
-	wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
-	tar xzf librdkafka-1.0.0.tar.gz && \
-	cd librdkafka-1.0.0 && \
-	./configure $(LIBRDKAFKA_CONF)&& \
-	$(MAKE) && \
-	$(MAKE) install && \
-	cd .. && rm -rf librdkafka-1.0.0; \

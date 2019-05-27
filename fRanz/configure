@@ -2,9 +2,19 @@
 
 set -eo
 
-wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
-tar xzf librdkafka-1.0.0.tar.gz && \
-cd librdkafka-1.0.0 && \
-./configure $(LIBRDKAFKA_CONF) --prefix="../src/librdkafka"&& \
-make && \
-make install;
+
+### Install librdkafka. Check simply if the library exists if need be
+if [ ! -d "src/librdkafka" ]; then
+    wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
+    tar xzf librdkafka-1.0.0.tar.gz && \
+    INSTALL_PATH="$PWD/src/librdkafka" && \
+    cd librdkafka-1.0.0 && \
+    ./configure $(LIBRDKAFKA_CONF) --prefix="$INSTALL_PATH" && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -r librdkafka-1.0.0 && \
+    rm librdkafka-1.0.0.tar.gz;
+else
+    echo "Detected librdkafka in src"
+fi

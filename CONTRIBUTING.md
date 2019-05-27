@@ -79,7 +79,7 @@ For more details see [conventional commits](https://conventionalcommits.org)
 
 #### Speeding up development times
 
-Currently `fRanz` installs the entire pulls and compiles the entire `librdkafka` source each time it is installed. This is good for portability but adds significant install time each time. In order to improve the experience developing, it's recommended the developer comments out the `configure` file after the first installation or other similar workarounds
+Currently `fRanz` installs the entire pulls and compiles the entire `librdkafka` source each time it is installed. This is good for portability but adds significant install time each time. In order to improve the experience developing a guard is put in ./configure which might cause caching issues. Use `make clean` to purge your install.
 
 ### Running Unit and Integration Tests
 > You must have `docker` and `docker-compose` configured correctly
@@ -88,6 +88,7 @@ Currently `fRanz` installs the entire pulls and compiles the entire `librdkafka`
 > when done, make sure to call `docker-compose down` to shutdown any running docker instances
 
 ### Creating Releases
+> Currently the best practice known is under `make check`
 > When we figure this out we will document it!
 
 ## Package Versioning <a name="version"></a>

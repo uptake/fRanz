@@ -39,8 +39,7 @@ int KafkaProduce(SEXP producer_pointer,
     std::string s_topic = Rcpp::as<std::string>(topic);
 
     if (keys.size() != values.size()) {
-        std::cout << "keys and values must be same size" << std::endl;
-        return -1;
+        Rcpp::stop("keys and values must be same size");
     }
     int numMsgs = keys.size();
     int numSent = 0;

@@ -1,17 +1,16 @@
 Package: fRanz
 Type: Package
-Title: An R Kafka Client.
+Title: An R Kafka Client
+Description: This is an R package for interacting with Kafka. It provides a wrapper around librdkafka with idiomatic R classes to consume and produce to Kafka topics.
 Version: 0.1.0
 Date: 2019-05-13
 Authors@R: c(
-    person("Patrick", "Boueri", email = "patrick.boueri@uptake.com", role = c("aut")),
-    person("Mike", "Jermann", email = "mike.jermann@uptake.com", role = c("cre"))
+    person("Patrick", "Boueri", email = "patrick.boueri@uptake.com", role = c("cre")),
+    person("Mike", "Jermann", email = "mike.jermann@uptake.com", role = c("aut"))
     )
 Maintainer: Patrick Boueri <patrick.boueri@uptake.com>
-Description: An R Kafka Client
 License: BSD_3_clause + file LICENSE
 Imports: 
-    jsonlite,
     Rcpp,
     R6,
     methods

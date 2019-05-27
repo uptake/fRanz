@@ -35,7 +35,9 @@
 #' 
 #' 
 #' # KafkaConsumer
-#' consumer <- KafkaConsumer$new(brokers = list(broker), groupId = "test", extraOptions=list(`auto.offset.reset`="earliest"))
+#' consumer <- KafkaConsumer$new(brokers = list(broker), 
+#'                               groupId = "test",
+#'                               extraOptions=list(`auto.offset.reset`="earliest"))
 #' consumer$subscribe(topics = c(TOPIC_NAME))
 #' result <- consumer$consume(topic=TOPIC_NAME)
 #' 
@@ -71,7 +73,7 @@ KafkaConsumer <- R6::R6Class(
         }
 
         , consume = function(topic, numResults=100) {
-            Filter(function(msg) !is.null(msg), KafkaConsume(private$consumerPtr, numResults))
+            return(KafkaConsume(private$consumerPtr, numResults))
         }
 
         , getTopics = function() {

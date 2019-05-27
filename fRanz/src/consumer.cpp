@@ -62,11 +62,11 @@ Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults, int timeout = 10000) {
                 messages[i] = message;
                 break;
             } case RdKafka::ERR__PARTITION_EOF: {
-                printf("No additional messages available\n");
+                //Trim the messages to the appropriate size
+                messages = messages[Rcpp::Range(0,i-1)];
                 goto exit_loop;
             } default: {
-                /* Errors */
-                printf("Consume failed: %s", msg->errstr().c_str());
+                Rcpp::stop("Consume failed: %s", msg->errstr().c_str());
                 goto exit_loop;
             }
         } 
