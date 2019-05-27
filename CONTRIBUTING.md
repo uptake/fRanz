@@ -56,29 +56,41 @@ To submit a PR, please follow these steps:
 1. Fork `fRanz` to your GitHub account
 2. Create a branch on your fork and add your changes
 3. If you are changing or adding to the R code in the package, add unit tests and integration tests confirming that your code works as expected
-3. When you are ready, click "Compare & Pull Request". Open A PR comparing your branch to the `master` branch in this repo
-4. In the description section on your PR, please indicate the following:
+4. Any commits added should ideally follow [conventional commits](https://conventionalcommits.org). See the Conventional Commits section below for more detail
+5. When you are ready, click "Compare & Pull Request". Open A PR comparing your branch to the `master` branch in this repo
+6. In the description section on your PR, please indicate the following:
     - description of what the PR is trying to do and how it improves `fRanz`
     - links to any open [issues](https://github.com/UptakeOpenSource/fRanz/issues) that your PR is addressing
 
 We will try to review PRs promptly and get back to you within a few days.
 
+### Conventional Commits
+
+We strive to follow conventional commits to make creating NEWS.md and other files easy to maintain. Additionally it provides ease to PR reviewers to semantically check which commit they want to review and sift through the changes. Though we are not terribly strict around this rule since it will cause lots of friction for first time contributors to have to re-author commits, and that is more important than havea   pure git history, we do ask frequent commiters to follow this convention. 
+
+In other words, this is a good useful convention but not at the expense of reducing interest or involvement in the project. This will come at the expense of automation, but that's ok.
+
+For more details see [conventional commits](https://conventionalcommits.org)
+
 ## Running Tests Locally <a name="testing"></a>
 
 ### Development
-> WIP: Document Local Development Setup
+`NOTE TO DEVELOPERS: Please add tips as you find them`
 
-### Running Unit Tests
-> WIP: Document How to Run Unit Tests
+#### Speeding up development times
 
-### Running Integration Tests
-> WIP: Document How to Run Integration Tests in Docker
+Currently `fRanz` installs the entire pulls and compiles the entire `librdkafka` source each time it is installed. This is good for portability but adds significant install time each time. In order to improve the experience developing, it's recommended the developer comments out the `configure` file after the first installation or other similar workarounds
+
+### Running Unit and Integration Tests
+> You must have `docker` and `docker-compose` configured correctly
+> run `docker-compose up -d` from the root of the repository. This will start kafka running on your machine
+> run `make test` or other R testing tools
+> when done, make sure to call `docker-compose down` to shutdown any running docker instances
 
 ### Creating Releases
-> WIP: Document How to Create Releases and Versioning
+> When we figure this out we will document it!
 
 ## Package Versioning <a name="version"></a>
-> WIP: Document Package Versioning format
 
 ### Version Format
 We follow semantic versioning for `fRanz` releases, `MAJOR`.`MINOR`.`PATCH`: 

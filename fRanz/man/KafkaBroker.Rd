@@ -3,7 +3,7 @@
 \docType{data}
 \name{KafkaBroker}
 \alias{KafkaBroker}
-\title{KafkaBroker}
+\title{Kafka Broker}
 \format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
 KafkaBroker

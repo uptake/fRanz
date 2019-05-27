@@ -24,24 +24,14 @@ RdSubscribe <- function(consumerPtr, Rtopics) {
 
 #' @title KafkaConsume
 #' @name KafkaConsume
-<<<<<<< HEAD
 #' @description Consume a fixed number of results from whatever topic(s)
 #'              the provided consumer is subscribed to.
-=======
-#' @description A method to that takes a consumer pointer and returns at most the specified number of results, unless the timeout is reached
->>>>>>> fix(build): Fixing install process to rely on system library as a temp measure
 #' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 #' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
 #' @param timeout the timeout in milliseconds. Default is 10000
 #' @return a list of length numResults with values list(key=key,value=value)
-<<<<<<< HEAD
-KafkaConsume <- function(consumerPtr, numResults) {
-    .Call('_fRanz_KafkaConsume', PACKAGE = 'fRanz', consumerPtr, numResults)
-=======
-#' @export
 KafkaConsume <- function(consumerPtr, numResults, timeout = 10000L) {
     .Call('_fRanz_KafkaConsume', PACKAGE = 'fRanz', consumerPtr, numResults, timeout)
->>>>>>> fix(build): Fixing install process to rely on system library as a temp measure
 }
 
 #' @title GetRdProducer

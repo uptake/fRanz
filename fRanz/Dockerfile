@@ -1,4 +1,0 @@
-FROM ubuntu:trusty
-
-
-COPY ./ ./:
