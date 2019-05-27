@@ -16,6 +16,7 @@ clean:
 	# Remove cpp object files
 	find $(PACKAGE)/src -name '*.o' -delete
 	find $(PACKAGE)/src -name '*.so' -delete
+	rm -r $(PACKAGE)/src/librdkafka
 
 distclean: clean cleanRcpp
 

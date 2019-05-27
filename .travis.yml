@@ -1,10 +1,7 @@
 services:
   - docker
 
-before_install:
-  - mkdir dest
-  - make librdkafka LIBRDKAFKA_CONF=--prefix=dest
-  - export LD_LIBRARY_PATH=LD_LIBRARY_PATH:dest/lib
+before_install: 
   - docker-compose up -d 
   - sleep 20
   - cd fRanz

@@ -1,0 +1,4 @@
+#!/bin/bash
+set -eo
+
+rm -r librdkafka-1.0.0 librdkafka-1.0.0.tar.gz

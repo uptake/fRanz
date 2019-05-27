@@ -1,2 +1,5 @@
-PKG_LIBS = -lrdkafka++
+LIBRDKAFKA_LOC = $(PWD)/librdkafka
+
+PKG_LIBS = -L$(LIBRDKAFKA_LOC)/lib -lrdkafka++
+PKG_CXXFLAGS = -I$(LIBRDKAFKA_LOC)/include
 CXX_STD=CXX11

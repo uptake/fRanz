@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eo
+
+wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
+tar xzf librdkafka-1.0.0.tar.gz && \
+cd librdkafka-1.0.0 && \
+./configure $(LIBRDKAFKA_CONF) --prefix="../src/librdkafka"&& \
+make && \
+make install;
