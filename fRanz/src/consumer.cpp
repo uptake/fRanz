@@ -1,19 +1,11 @@
-#include <rdkafkacpp.h>
+#include <librdkafka/rdkafkacpp.h>
 #include <Rcpp.h>
 #include "utils.h"
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <cstdio>
-#include <csignal>
-#include <thread>
-#include <chrono>
-#include <cstring>
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //' @title GetRdConsumer
 //' @name GetRdConsumer
-//' @description Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+//' @description Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \href{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}{Configuration}
 //' @param keys a character vector indicating option keys to parameterize the RdKafka::Consumer
 //' @param values a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.
 //' @return a Rcpp::XPtr<RdKafka::Consumer>
@@ -54,14 +46,15 @@ int RdSubscribe(SEXP consumerPtr, const Rcpp::StringVector Rtopics) {
 //'              the provided consumer is subscribed to.
 //' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 //' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
+//' @param timeout the timeout in milliseconds. Default is 10000
 //' @return a list of length numResults with values list(key=key,value=value)
 // [[Rcpp::export]]
-Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
+Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults, int timeout = 10000) {
     Rcpp::XPtr<RdKafka::KafkaConsumer> consumer(consumerPtr);
 
     Rcpp::List messages(numResults);
     for(int i = 0; i < numResults; i++) {
-        RdKafka::Message *msg = consumer->consume(10000);
+        RdKafka::Message *msg = consumer->consume(timeout);
         switch(msg->err()){
             case RdKafka::ERR_NO_ERROR: {
                 Rcpp::List message = Rcpp::List::create(Rcpp::Named("key") = *msg->key(),
@@ -69,11 +62,11 @@ Rcpp::List KafkaConsume(SEXP consumerPtr, int numResults) {
                 messages[i] = message;
                 break;
             } case RdKafka::ERR__PARTITION_EOF: {
-                printf("No additional messages available\n");
+                //Trim the messages to the appropriate size
+                messages = messages[Rcpp::Range(0,i-1)];
                 goto exit_loop;
             } default: {
-                /* Errors */
-                printf("Consume failed: %s", msg->errstr().c_str());
+                Rcpp::stop("Consume failed: %s", msg->errstr().c_str());
                 goto exit_loop;
             }
         } 

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -eo
+
+
+### Install librdkafka. Check simply if the library exists if need be
+if [ ! -d "src/librdkafka" ]; then
+    wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
+    tar xzf librdkafka-1.0.0.tar.gz && \
+    INSTALL_PATH="$PWD/src/librdkafka" && \
+    mkdir $INSTALL_PATH &&\
+    mv librdkafka-1.0.0/* $INSTALL_PATH && \
+    cd $INSTALL_PATH && \
+    ./configure --prefix=. && make && make install && \
+    cd ../.. &&
+    cp -r src/librdkafka/lib inst/ && \
+    cp -r inst/lib inst/libs && \
+    rm librdkafka-1.0.0.tar.gz;
+else
+    echo "Detected librdkafka in src"
+fi

@@ -5,4 +5,6 @@
 *.o
 *.so
 *.DS_Store
-fRanz/inst/librdkafka*
+franz/src/librdkafa
+franz/src/pkgconfig
+librdkafka*

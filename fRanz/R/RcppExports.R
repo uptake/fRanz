@@ -3,7 +3,7 @@
 
 #' @title GetRdConsumer
 #' @name GetRdConsumer
-#' @description Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+#' @description Creates an Rcpp::XPtr<RdKafka::Consumer>. For more details on options \href{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}{Configuration}
 #' @param keys a character vector indicating option keys to parameterize the RdKafka::Consumer
 #' @param values a character vector indicating option values to parameterize the RdKafka::Consumer. Must be of same length as keys.
 #' @return a Rcpp::XPtr<RdKafka::Consumer>
@@ -28,14 +28,15 @@ RdSubscribe <- function(consumerPtr, Rtopics) {
 #'              the provided consumer is subscribed to.
 #' @param consumerPtr a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>
 #' @param numResults how many results should be consumed before returning. Will return early if offset is at maximum
+#' @param timeout the timeout in milliseconds. Default is 10000
 #' @return a list of length numResults with values list(key=key,value=value)
-KafkaConsume <- function(consumerPtr, numResults) {
-    .Call('_fRanz_KafkaConsume', PACKAGE = 'fRanz', consumerPtr, numResults)
+KafkaConsume <- function(consumerPtr, numResults, timeout = 10000L) {
+    .Call('_fRanz_KafkaConsume', PACKAGE = 'fRanz', consumerPtr, numResults, timeout)
 }
 
 #' @title GetRdProducer
 #' @name GetRdProducer
-#' @description Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \link{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}
+#' @description Creates an Rcpp::XPtr<RdKafka::Producer>. For more details on options \href{https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md}{Configuration}
 #' @param keys a character vector indicating option keys to parameterize the RdKafka::Producer
 #' @param values a character vector indicating option values to parameterize the RdKafka::Producer. Must be of same length as keys.
 #' @return a Rcpp::XPtr<RdKafka::Producer>

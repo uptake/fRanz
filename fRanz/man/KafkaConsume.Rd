@@ -4,12 +4,14 @@
 \alias{KafkaConsume}
 \title{KafkaConsume}
 \usage{
-KafkaConsume(consumerPtr, numResults)
+KafkaConsume(consumerPtr, numResults, timeout = 10000L)
 }
 \arguments{
 \item{consumerPtr}{a reference to a Rcpp::XPtr<RdKafka::KafkaConsumer>}
 
 \item{numResults}{how many results should be consumed before returning. Will return early if offset is at maximum}
+
+\item{timeout}{the timeout in milliseconds. Default is 10000}
 }
 \value{
 a list of length numResults with values list(key=key,value=value)
