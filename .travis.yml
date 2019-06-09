@@ -1,7 +1,8 @@
 services:
   - docker
 
-before_install: 
+before_install:
+   
   - docker-compose up -d 
   - sleep 20
   - cd fRanz

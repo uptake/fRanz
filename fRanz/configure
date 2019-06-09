@@ -8,16 +8,13 @@ if [ ! -d "src/librdkafka" ]; then
     wget https://github.com/edenhill/librdkafka/archive/v1.0.0.tar.gz -O librdkafka-1.0.0.tar.gz && \
     tar xzf librdkafka-1.0.0.tar.gz && \
     INSTALL_PATH="$PWD/src/librdkafka" && \
-    cd librdkafka-1.0.0 && \
-    ./configure $(LIBRDKAFKA_CONF) --prefix="$INSTALL_PATH" && \
-    make && \
-    make install && \
-    cd .. && \
-    # We must also copy librdkafka/libs into src so that they are installed by default, otherwise we need to write a custom install.package.R
-    # Which is a larger more daunting task that could be error prone https://github.com/wch/r-source/blob/245613c0833040e05cb5c6a07205ff0fd9248577/src/library/tools/R/install.R#L513
-    # and also looks like it's deprecated https://github.com/r-lib/devtools/issues/1444
-    cp -r src/librdkafka/lib/* src/ && \
-    rm -r librdkafka-1.0.0 && \
+    mkdir $INSTALL_PATH &&\
+    mv librdkafka-1.0.0/* $INSTALL_PATH && \
+    cd $INSTALL_PATH && \
+    ./configure --prefix=. && make && make install && \
+    cd ../.. &&
+    cp -r src/librdkafka/lib inst/ && \
+    cp -r inst/lib inst/libs && \
     rm librdkafka-1.0.0.tar.gz;
 else
     echo "Detected librdkafka in src"

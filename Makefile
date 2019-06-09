@@ -1,12 +1,8 @@
 PACKAGE = fRanz
 .PHONY: install test docs clean distclean cleanRcpp unlock build check
 
-install: unlock clean cleanRcpp
-	# Install fRanz R package
-	Rscript -e 'if (!"Rcpp" %in% rownames(installed.packages())) {install.packages("Rcpp", repos = "https://cran.rstudio.com")}' && \
-	Rscript -e "Rcpp::compileAttributes(file.path(getwd(),'$(PACKAGE)'))" && \
-	Rscript -e 'if (!"devtools" %in% rownames(installed.packages())) {install.packages("devtools", repos = "https://cran.rstudio.com")}' && \
-	Rscript -e "devtools::install(file.path(getwd(),'$(PACKAGE)'), force = TRUE, upgrade = FALSE)"
+install: docs
+	R CMD INSTALL $(PACKAGE)
 
 check: docs clean
 	R CMD build fRanz
@@ -19,7 +15,9 @@ clean:
 	# Remove cpp object files
 	find $(PACKAGE)/src -name '*.o' -delete
 	find $(PACKAGE)/src -name '*.so' -delete
-	rm -r $(PACKAGE)/src/librdkafka
+	find $(PACKAGE)/src -name '*.a' -delete
+	find $(PACKAGE)/src -name '*.dylib' -delete
+	rm -r $(PACKAGE)/src/librdkafka 
 
 distclean: clean cleanRcpp
 

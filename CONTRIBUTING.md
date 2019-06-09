@@ -76,6 +76,7 @@ For more details see [conventional commits](https://conventionalcommits.org)
 
 ### Development
 `NOTE TO DEVELOPERS: Please add tips as you find them`
+- You need to have g++ to work with this package properly. The clang compiler is not supported because of differences in static linking in the namespace. See this issue for more details 
 
 #### Speeding up development times
 
